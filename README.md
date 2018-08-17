@@ -1,0 +1,108 @@
+
+
+
+
+## Installation
+
+
+ `npm i -S rn-samsung-health` 
+
+
+
+## Getting started
+
+
+  - Add to your `{YourApp}/android/settings.gradle`:
+
+```
+include ':rn-samsung-health'
+        project(':rn-samsung-health').projectDir = new File(settingsDir, '../node_modules/rn-samsung-health/android')
+```
+
+  - Add dependency to your `android/app/build.gradle` file:
+
+
+```java
+dependencies {
+                ...
+               compile project(':rn-samsung-health')         // add this line
+        }
+```
+
+
+- Add following code to `android/app/src/main/java/**/MainApplication.java`:
+
+
+```java
+import com.reactnative.samsunghealth.SamsungHealthPackage;  // add this line
+
+public class MainApplication extends Application implements ReactApplication {
+    @Override
+    protected List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+            .....,
+            new SamsungHealthPackage(BuildConfig.APPLICATION_ID)  // add this line
+            );
+    }
+}
+```
+
+- Add permissions in `android/app/src/main/AndroidManifest.xml`:
+```xml
+        <application
+        <meta-data
+          android:name="com.samsung.android.health.permission.read"
+          android:value="com.samsung.health.weight;com.samsung.health.step_count;com.samsung.shealth.step_daily_trend;com.samsung.health.height;com.samsung.health.blood_pressure;com.samsung.health.heart_rate;com.samsung.health.sleep;com.samsung.health.body_temperature;" />
+```
+
+
+
+## Usage
+
+
+```javascript
+    import RNSamsungHealth from 'rn-samsung-health'
+
+    RNSamsungHealth.authorize((err, res) => {
+      if (res) {
+        let opt = {startDate:3816633600000, endDate:3816720000000};  // new Date().getTime()
+        RNSamsungHealth.getDailyStepCount(opt, (err, res) => {
+          if (err) console.log(err);
+          if (res) console.log(res);
+        });
+      } else console.log(err);
+    });
+    
+    // more similar functions are - 
+    
+    //getDailyStepCount
+    //getHeight
+    //getWeightSamples
+    //getSleep
+    //getCholesterol
+    //getBloodPressure
+    //getBodyTemprature
+    
+    
+    
+```
+
+
+ 
+## Developer Mode on Samsung Health app
+
+
+You need Samsung app certification to access all health data provided by Ssamsung Health application. You can apply for Samsung partner apps for your react-native application. For more details please visit [Samsung Health Android SDK](https://developer.samsung.com/health/android)
+
+For development purpose you can enable the developer mode on Samsung Health app:
+
+Open Samsung Health application
+
+Go to > Settings > About Samsung Health
+
+Tap 10 times on the app version `Version XX.XX`.
+
+The name of the version will be changed to ` *(Developer Mode)* XXXX Version XX.XX` and you'll be able to access S Health data.
+
+Feel free to report [issues](https://github.com/GaneshSinghPapola/rn-samsung-health/issues) here.

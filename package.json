@@ -1,0 +1,22 @@
+{
+  "name": "rn-samsung-health",
+  "version": "0.1.2",
+  "private": false,
+  "license": "Unlicense",
+  "main": "index.android.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaneshSinghPapola/rn-samsung-health.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "rn",
+    "samsung-health",
+    "android",
+    "library"
+  ],
+  "author": "Ganesh Singh Papola"
+}
