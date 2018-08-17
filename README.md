@@ -78,7 +78,7 @@ public class MainApplication extends Application implements ReactApplication {
     
     //getDailyStepCount
     //getHeight
-    //getWeightSamples
+    //getWeight
     //getSleep
     //getCholesterol
     //getBloodPressure
