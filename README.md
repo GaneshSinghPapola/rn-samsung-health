@@ -1,4 +1,6 @@
+## rn-samsung-health
 
+React-Native module to read health data from samsung-health application on android device, using samsung health android sdk.
 
 
 
