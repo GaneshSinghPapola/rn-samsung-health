@@ -6,9 +6,9 @@ import {
 const samsungHealth = NativeModules.RNSamsungHealth;
 
 class RNSamsungHealth {
-  authorize(permissions, callback) {
+  authorize( callback) {
     samsungHealth.connect(
-      permissions,
+      [samsungHealth.STEP_COUNT],
       (msg) => { callback(msg, false); },
       (res) => { callback(false, res); },
     );
@@ -21,17 +21,11 @@ class RNSamsungHealth {
   getDailyStepCount(options, callback) {
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
-    let mergeData = options.mergeData != undefined ? options.mergeData : true;
 
-    //console.log("startDate:" + startDate);
-    //console.log("endDate:" + endDate);
-    //console.log("startDate2:" + (new Date(startDate)).toLocaleString());
-    //console.log("endDate2:" + (new Date(endDate)).toLocaleString());
 
     samsungHealth.readStepCount(startDate, endDate,
       (msg) => { callback(msg, false); },
       (res) => {
-        console.log("readStepCount",options);
           if (res.length>0) {
               var resData = res.map(function(dev) {
                   var obj = {};
@@ -41,7 +35,6 @@ class RNSamsungHealth {
                   return obj;
                 }, this);
 
-            //   if (mergeData) resData = this.mergeResult(resData);
 
               callback(false, resData);
           } else {
@@ -52,7 +45,6 @@ class RNSamsungHealth {
   }
 
   getWeight(options, callback) {
-    console.log("getWeightSamples",options);
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
 
@@ -65,7 +57,6 @@ class RNSamsungHealth {
   }
 
   getSleep(options, callback) {
-    console.log("getSleep",options);
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
 
@@ -80,7 +71,6 @@ class RNSamsungHealth {
 
 
   getHeartRate(options, callback) {
-    console.log("getHeartRate",options);
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
 
@@ -93,7 +83,6 @@ class RNSamsungHealth {
   }
 
   getBodyTemprature(options, callback) {
-    console.log("getBodyTemprature",options);
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
 
@@ -108,7 +97,6 @@ class RNSamsungHealth {
 
 
   getBloodPressure(options, callback) {
-    console.log("getBloodPressure",options);
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
 
@@ -121,7 +109,6 @@ class RNSamsungHealth {
   }
 
   getHeight(options, callback) {
-    console.log("getHeight",options);
 
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
@@ -135,7 +122,6 @@ class RNSamsungHealth {
   }
   
   getCholesterol(options, callback) {
-    console.log("getHeight",options);
 
     let startDate = options.startDate != undefined ? options.startDate : (new Date()).setHours(0,0,0,0);
     let endDate = options.endDate != undefined ? options.endDate : (new Date()).valueOf();
@@ -214,10 +200,5 @@ class RNSamsungHealth {
   }
 }
 
-// if (samsungHealth !== undefined) {
-//   RNSamsungHealth.STEP_COUNT = samsungHealth.STEP_COUNT;
-//   RNSamsungHealth.WEIGHT = samsungHealth.WEIGHT;
-//   RNSamsungHealth.STEP_DAILY_TREND = samsungHealth.STEP_DAILY_TREND;
-// }
 
 export default new RNSamsungHealth();
