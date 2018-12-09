@@ -190,6 +190,7 @@ public class SamsungHealthModule extends ReactContextBaseJavaModule implements
                 .setDataType(SamsungHealthModule.STEP_DAILY_TREND_TYPE)
                 .setProperties(new String[]{
                         HealthConstants.StepCount.COUNT,
+                        HealthConstants.StepCount.DISTANCE,
                         SamsungHealthModule.DAY_TIME,
                         HealthConstants.StepCount.CALORIE,
                         HealthConstants.StepCount.DEVICE_UUID 
