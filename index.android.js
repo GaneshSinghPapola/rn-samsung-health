@@ -150,7 +150,7 @@ class RNSamsungHealth {
           var month = ("0" + (date.getMonth()+1)).slice(-2);
           var year = date.getFullYear();
           var dateFormatted = year + "-" + month + "-" + day;
-          results.push({steps:step.count, date:dateFormatted,  calorie:step.calorie})
+          results.push({steps:step.count, date:dateFormatted,  calorie:step.calorie, distance: step.distance})
         
       }
       return results;
