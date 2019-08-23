@@ -109,6 +109,42 @@ class RNSamsungHealth {
     });
   }
 
+  getExercise(options) {
+    let startDate =
+      options.startDate != undefined
+        ? options.startDate
+        : new Date().setHours(0, 0, 0, 0);
+    let endDate =
+      options.endDate != undefined ? options.endDate : new Date().valueOf();
+
+    return new Promise((resolve, reject) => {
+      samsungHealth.readExercise(
+        startDate,
+        endDate,
+        msg => reject(msg),
+        res => resolve(res)
+      );
+    });
+  }
+
+  getFloorsClimbed(options) {
+    let startDate =
+      options.startDate != undefined
+        ? options.startDate
+        : new Date().setHours(0, 0, 0, 0);
+    let endDate =
+      options.endDate != undefined ? options.endDate : new Date().valueOf();
+
+    return new Promise((resolve, reject) => {
+      samsungHealth.readFloorsClimbed(
+        startDate,
+        endDate,
+        msg => reject(msg),
+        res => resolve(res)
+      );
+    });
+  }
+
   getBodyTemprature(options) {
     let startDate =
       options.startDate != undefined

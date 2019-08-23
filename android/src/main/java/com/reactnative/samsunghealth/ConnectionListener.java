@@ -79,6 +79,8 @@ public class ConnectionListener implements HealthDataStore.ConnectionListener {
         mKeySet.add(new PermissionKey("com.samsung.health.water_intake", PermissionType.READ));
         mKeySet.add(new PermissionKey("com.samsung.health.nutrition", PermissionType.READ));
         mKeySet.add(new PermissionKey("com.samsung.health.step_count", PermissionType.READ));
+        mKeySet.add(new PermissionKey("com.samsung.health.exercise", PermissionType.READ));
+        mKeySet.add(new PermissionKey("com.samsung.health.floors_climbed", PermissionType.READ));
 
     }
 

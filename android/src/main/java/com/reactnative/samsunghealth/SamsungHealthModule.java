@@ -399,8 +399,52 @@ public class SamsungHealthModule extends ReactContextBaseJavaModule implements L
             resolver.read(request).setResultListener(new HealthDataResultListener(this, error, success));
         } catch (Exception e) {
             Log.e(REACT_MODULE, e.getClass().getName() + " - " + e.getMessage());
-            Log.e(REACT_MODULE, "Getting WATER INTAKE fails.");
-            error.invoke("Getting WATER INTAKE fails.");
+            Log.e(REACT_MODULE, "Getting Nutrition fails.");
+            error.invoke("Getting Nutrition fails.");
+        }
+    }
+
+    @ReactMethod
+    public void readExercise(double startDate, double endDate, Callback error, Callback success) {
+        HealthDataResolver resolver = new HealthDataResolver(mStore, null);
+        Filter filter = Filter.and(Filter.greaterThanEquals(HealthConstants.Exercise.START_TIME, (long) startDate),
+                Filter.lessThanEquals(HealthConstants.Exercise.START_TIME, (long) endDate));
+        HealthDataResolver.ReadRequest request = new ReadRequest.Builder()
+                .setDataType(HealthConstants.Exercise.HEALTH_DATA_TYPE)
+                .setProperties(new String[] { HealthConstants.Exercise.CALORIE, HealthConstants.Exercise.EXERCISE_TYPE,
+                        HealthConstants.Exercise.DURATION, HealthConstants.Exercise.CALORIE,
+                        HealthConstants.Exercise.START_TIME, HealthConstants.Exercise.END_TIME,
+                        HealthConstants.Exercise.DISTANCE, HealthConstants.Exercise.TIME_OFFSET,
+                        HealthConstants.Exercise.DEVICE_UUID })
+                .setFilter(filter).build();
+
+        try {
+            resolver.read(request).setResultListener(new HealthDataResultListener(this, error, success));
+        } catch (Exception e) {
+            Log.e(REACT_MODULE, e.getClass().getName() + " - " + e.getMessage());
+            Log.e(REACT_MODULE, "Getting Exercise fails.");
+            error.invoke("Getting Exercise fails.");
+        }
+    }
+
+    @ReactMethod
+    public void readFloorsClimbed(double startDate, double endDate, Callback error, Callback success) {
+        HealthDataResolver resolver = new HealthDataResolver(mStore, null);
+        Filter filter = Filter.and(Filter.greaterThanEquals(HealthConstants.FloorsClimbed.START_TIME, (long) startDate),
+                Filter.lessThanEquals(HealthConstants.FloorsClimbed.END_TIME, (long) endDate));
+        HealthDataResolver.ReadRequest request = new ReadRequest.Builder()
+                .setDataType(HealthConstants.FloorsClimbed.HEALTH_DATA_TYPE)
+                .setProperties(
+                        new String[] { HealthConstants.FloorsClimbed.FLOOR, HealthConstants.FloorsClimbed.START_TIME,
+                                HealthConstants.FloorsClimbed.TIME_OFFSET, HealthConstants.FloorsClimbed.DEVICE_UUID })
+                .setFilter(filter).build();
+
+        try {
+            resolver.read(request).setResultListener(new HealthDataResultListener(this, error, success));
+        } catch (Exception e) {
+            Log.e(REACT_MODULE, e.getClass().getName() + " - " + e.getMessage());
+            Log.e(REACT_MODULE, "Getting Floors Climbed fails.");
+            error.invoke("Getting Floors Climbed fails.");
         }
     }
 }

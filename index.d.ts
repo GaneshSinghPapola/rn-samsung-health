@@ -24,6 +24,29 @@ declare module 'rn-samsung-health' {
     source: ISourceDetailes;
   }
 
+  interface IExerciseData {
+    data: {
+      calorie: number;
+      distance: number;
+      duration: number;
+      day_time: number;
+      end_time: number;
+      exercise_type: number;
+      start_time: number;
+      time_offset: number;
+    }[];
+    source: ISourceDetailes;
+  }
+
+  interface IFloorsClimbedData {
+    data: {
+      floor: number;
+      start_time: number;
+      time_offset: number;
+    }[];
+    source: ISourceDetailes;
+  }
+
   interface IStepCountSamplesData {
     data: {
       calorie: number;
@@ -167,4 +190,10 @@ declare module 'rn-samsung-health' {
   export const getNutrition: (
     options: IOptionData
   ) => Promise<INutritionData[]>;
+
+  export const getExercise: (options: IOptionData) => Promise<IExerciseData[]>;
+
+  export const getFloorsClimbed: (
+    options: IOptionData
+  ) => Promise<IFloorsClimbedData[]>;
 }
