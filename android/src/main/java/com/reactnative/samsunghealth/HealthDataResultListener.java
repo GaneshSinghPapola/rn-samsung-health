@@ -2,8 +2,8 @@ package com.reactnative.samsunghealth;
 
 import android.database.Cursor;
 import android.util.Log;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 
 import com.facebook.react.bridge.Callback;

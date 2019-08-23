@@ -2,8 +2,8 @@ package com.reactnative.samsunghealth;
 
 import android.database.Cursor;
 import android.util.Log;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,9 +46,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ConnectionListener implements
-    HealthDataStore.ConnectionListener
-{
+public class ConnectionListener implements HealthDataStore.ConnectionListener {
     private Callback mSuccessCallback;
     private Callback mErrorCallback;
     private SamsungHealthModule mModule;
@@ -58,18 +56,17 @@ public class ConnectionListener implements
 
     public Set<PermissionKey> mKeySet;
 
-    public ConnectionListener(SamsungHealthModule module, Callback error, Callback success)
-    {
+    public ConnectionListener(SamsungHealthModule module, Callback error, Callback success) {
         mModule = module;
         mErrorCallback = error;
         mSuccessCallback = success;
         mKeySet = new HashSet<PermissionKey>();
     }
-    
-    public void addReadPermission(String name)
-    {
+
+    public void addReadPermission(String name) {
         // mKeySet.add(new PermissionKey(name, PermissionType.READ));
-        // mKeySet.add(new PermissionKey(SamsungHealthModule.STEP_DAILY_TREND_TYPE, PermissionType.READ));
+        // mKeySet.add(new PermissionKey(SamsungHealthModule.STEP_DAILY_TREND_TYPE,
+        // PermissionType.READ));
 
         mKeySet.add(new PermissionKey("com.samsung.shealth.step_daily_trend", PermissionType.READ));
         mKeySet.add(new PermissionKey("com.samsung.health.weight", PermissionType.READ));
@@ -78,6 +75,9 @@ public class ConnectionListener implements
         mKeySet.add(new PermissionKey("com.samsung.health.blood_pressure", PermissionType.READ));
         mKeySet.add(new PermissionKey("com.samsung.health.sleep", PermissionType.READ));
         mKeySet.add(new PermissionKey("com.samsung.health.body_temperature", PermissionType.READ));
+        mKeySet.add(new PermissionKey("com.samsung.health.total_cholesterol", PermissionType.READ));
+        mKeySet.add(new PermissionKey("com.samsung.health.water_intake", PermissionType.READ));
+        mKeySet.add(new PermissionKey("com.samsung.health.nutrition", PermissionType.READ));
 
     }
 
@@ -98,9 +98,8 @@ public class ConnectionListener implements
 
             if (resultMap.containsValue(Boolean.FALSE)) {
                 // Request the permission for reading step counts if it is not acquired
-                pmsManager.requestPermissions(mKeySet, mModule.getContext().getCurrentActivity()).setResultListener(
-                    new PermissionListener(mModule, mErrorCallback, mSuccessCallback)
-                );
+                pmsManager.requestPermissions(mKeySet, mModule.getContext().getCurrentActivity())
+                        .setResultListener(new PermissionListener(mModule, mErrorCallback, mSuccessCallback));
             } else {
                 // Get the current step count and display it
                 Log.d(REACT_MODULE, "COUNT THE STEPS!");
@@ -119,7 +118,7 @@ public class ConnectionListener implements
         String message = "Connection with Samsung Health is not available";
 
         if (error.hasResolution()) {
-          switch(error.getErrorCode()) {
+            switch (error.getErrorCode()) {
             case HealthConnectionErrorResult.PLATFORM_NOT_INSTALLED:
                 message = "Please install Samsung Health";
                 break;
@@ -154,12 +153,12 @@ public class ConnectionListener implements
         }
 
         alert.show();
-        //mErrorCallback.invoke(message);
+        // mErrorCallback.invoke(message);
     }
 
     @Override
     public void onDisconnected() {
         Log.d(REACT_MODULE, "Health data service is disconnected.");
-        //mErrorCallback.invoke("Health data service is disconnected.");
+        // mErrorCallback.invoke("Health data service is disconnected.");
     }
 };
