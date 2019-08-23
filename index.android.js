@@ -19,7 +19,7 @@ class RNSamsungHealth {
     samsungHealth.disconnect();
   }
 
-  getDailyStepCount(options, callback) {
+  getStepCountDailies(options) {
     let startDate =
       options.startDate != undefined
         ? options.startDate
@@ -28,25 +28,29 @@ class RNSamsungHealth {
       options.endDate != undefined ? options.endDate : new Date().valueOf();
 
     return new Promise((resolve, reject) => {
-      samsungHealth.readStepCount(
+      samsungHealth.readStepCountDailies(
         startDate,
         endDate,
         msg => reject(msg, false),
-        res => {
-          if (res.length > 0) {
-            var resData = res.map(function(dev) {
-              var obj = {};
-              obj.source = dev.source.name;
-              obj.data = this.buildDailySteps(dev.data);
-              obj.sourceDetail = dev.source;
-              return obj;
-            }, this);
+        res => resolve(res)
+      );
+    });
+  }
 
-            resolve(resData);
-          } else {
-            reject('There is no any steps data for this period');
-          }
-        }
+  getStepCountSamples(options) {
+    let startDate =
+      options.startDate != undefined
+        ? options.startDate
+        : new Date().setHours(0, 0, 0, 0);
+    let endDate =
+      options.endDate != undefined ? options.endDate : new Date().valueOf();
+
+    return new Promise((resolve, reject) => {
+      samsungHealth.readStepCountSamples(
+        startDate,
+        endDate,
+        msg => reject(msg, false),
+        res => resolve(res)
       );
     });
   }
@@ -215,27 +219,6 @@ class RNSamsungHealth {
 
   usubscribeListeners() {
     DeviceEventEmitter.removeAllListeners();
-  }
-
-  buildDailySteps(data) {
-    var results = [];
-    for (var step of data) {
-      var date =
-        step.start_time !== undefined
-          ? new Date(step.start_time)
-          : new Date(step.day_time);
-
-      var day = ('0' + date.getDate()).slice(-2);
-      var month = ('0' + (date.getMonth() + 1)).slice(-2);
-      var year = date.getFullYear();
-      var dateFormatted = year + '-' + month + '-' + day;
-      results.push({
-        steps: step.count,
-        date: dateFormatted,
-        calorie: step.calorie
-      });
-    }
-    return results;
   }
 
   mergeResult(res) {

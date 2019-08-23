@@ -1,4 +1,4 @@
-declare module "rn-samsung-health" {
+declare module 'rn-samsung-health' {
   export const authorize: () => Promise<boolean>;
 
   interface IOptionData {
@@ -13,50 +13,57 @@ declare module "rn-samsung-health" {
     uuid: string;
   }
 
-  interface IDailyStepCountData {
-    data:
-      | {
-          calorie: number;
-          date: string;
-          steps: number;
-        }[]
-      | [];
+  interface IStepCountDailiesData {
+    data: {
+      calorie: number;
+      day_time: number;
+      count: number;
+      distance: number;
+      speed: number;
+    }[];
+    source: ISourceDetailes;
+  }
+
+  interface IStepCountSamplesData {
+    data: {
+      calorie: number;
+      count: number;
+      distance: number;
+      end_time: number;
+      speed: number;
+      start_time: number;
+      time_offset: number;
+    }[];
     source: string;
     sourceDetail: ISourceDetailes;
   }
 
   export interface IWeightData {
-    data:
-      | {
-          start_time: number;
-          time_offset: number;
-          weight: number; // Weight in kilograms.
-        }[]
-      | [];
+    data: {
+      start_time: number;
+      time_offset: number;
+      weight: number; // Weight in kilograms.
+    }[];
     source: ISourceDetailes;
   }
 
   export interface ISleepData {
-    data:
-      | {
-          end_time: number;
-          start_time: number;
-          time_offset: number;
-        }[]
-      | [];
+    data: {
+      end_time: number;
+      start_time: number;
+      time_offset: number;
+    }[];
     source: ISourceDetailes;
   }
 
   export interface IBloodPressureData {
-    data:
-      | {
-          diastolic: number;
-          mean: number;
-          start_time: number;
-          systolic: number;
-          time_offset: number;
-        }[]
-      | [];
+    data: {
+      diastolic: number;
+      mean: number;
+      start_time: number;
+      systolic: number;
+      time_offset: number;
+    }[];
     source: ISourceDetailes;
   }
 
@@ -71,99 +78,93 @@ declare module "rn-samsung-health" {
   }
 
   export interface IHeartRateData {
-    data:
-      | {
-          end_time: number;
-          heart_rate: number; //  beats per minute (bpm).
-          start_time: number;
-          time_offset: number;
-        }[]
-      | [];
+    data: {
+      end_time: number;
+      heart_rate: number; //  beats per minute (bpm).
+      start_time: number;
+      time_offset: number;
+    }[];
     source: ISourceDetailes;
   }
 
   export interface IHeightData {
-    data:
-      | {
-          height: string; // allways in cm
-          start_time: string;
-          time_offset: string;
-        }[]
-      | [];
+    data: {
+      height: string; // allways in cm
+      start_time: string;
+      time_offset: string;
+    }[];
     source: ISourceDetailes;
   }
 
   // TODO check this props types
   export interface ICholesterolData {
-    data:
-      | {
-          total_cholesterol: string; // in mg/dL
-          start_time: string;
-          time_offset: string;
-        }[]
-      | [];
+    data: {
+      total_cholesterol: string; // in mg/dL
+      start_time: string;
+      time_offset: string;
+    }[];
     source: ISourceDetailes;
   }
 
   export interface IWaterIntakeData {
-    data:
-      | {
-          amount: number; // Amount of water intake in milliliters.
-          start_time: string;
-          time_offset: string;
-        }[]
-      | [];
+    data: {
+      amount: number; // Amount of water intake in milliliters.
+      start_time: string;
+      time_offset: string;
+    }[];
     source: ISourceDetailes;
   }
 
   // TODO add props
   export interface INutritionData {
-    data:
-      | {
-          calorie: number;
-          start_time: number;
-          time_offset: number;
-          carbohydrate: number;
-          cholesterol: number;
-          meal_type: number;
-          protein: number;
-          saturated_fat: number;
-        }[]
-      | [];
+    data: {
+      calorie: number;
+      start_time: number;
+      time_offset: number;
+      carbohydrate: number;
+      cholesterol: number;
+      meal_type: number;
+      protein: number;
+      saturated_fat: number;
+    }[];
     source: ISourceDetailes;
   }
 
-  export const getDailyStepCount: (
+  export const getStepCountDailies: (
     options: IOptionData
-  ) => Promise<IDailyStepCountData[] | []>;
+  ) => Promise<IStepCountDailiesData[]>;
 
-  export const getWeight: (options: IOptionData) => Promise<IWeightData[] | []>;
+  export const getStepCountSamples: (
+    options: IOptionData
+  ) => Promise<IStepCountSamplesData[]>;
 
-  export const getSleep: (options: IOptionData) => Promise<ISleepData[] | []>;
+  export const getWeight: (options: IOptionData) => Promise<IWeightData[]>;
+
+  export const getSleep: (options: IOptionData) => Promise<ISleepData[]>;
 
   export const getHeartRate: (
     options: IOptionData
-  ) => Promise<IHeartRateData[] | []>;
+  ) => Promise<IHeartRateData[]>;
 
   export const getBodyTemprature: (
     options: IOptionData
-  ) => Promise<IBodyTempratureData[] | []>;
+  ) => Promise<IBodyTempratureData[]>;
 
   export const getBloodPressure: (
     options: IOptionData
-  ) => Promise<IBloodPressureData[] | []>;
+  ) => Promise<IBloodPressureData[]>;
 
-  export const getHeight: (options: IOptionData) => Promise<IHeightData[] | []>;
+  export const getHeight: (options: IOptionData) => Promise<IHeightData[]>;
 
   export const getCholesterol: (
     options: IOptionData
-  ) => Promise<ICholesterolData[] | []>;
+  ) => Promise<ICholesterolData[]>;
 
   export const getWaterIntake: (
     options: IOptionData
-  ) => Promise<IWaterIntakeData[] | []>;
+  ) => Promise<IWaterIntakeData[]>;
 
   export const getNutrition: (
     options: IOptionData
-  ) => Promise<INutritionData[] | []>;
+  ) => Promise<INutritionData[]>;
 }

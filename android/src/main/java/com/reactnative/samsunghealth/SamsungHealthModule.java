@@ -164,7 +164,7 @@ public class SamsungHealthModule extends ReactContextBaseJavaModule implements L
 
     // Read the today's step count on demand
     @ReactMethod
-    public void readStepCount(double startDate, double endDate, Callback error, Callback success) {
+    public void readStepCountDailies(double startDate, double endDate, Callback error, Callback success) {
         HealthDataResolver resolver = new HealthDataResolver(mStore, null);
 
         Filter filter = Filter.and(Filter.greaterThanEquals(SamsungHealthModule.DAY_TIME, (long) startDate),
@@ -173,7 +173,31 @@ public class SamsungHealthModule extends ReactContextBaseJavaModule implements L
                 .setDataType(SamsungHealthModule.STEP_DAILY_TREND_TYPE)
                 .setProperties(new String[] { HealthConstants.StepCount.COUNT, HealthConstants.StepCount.DISTANCE,
                         SamsungHealthModule.DAY_TIME, HealthConstants.StepCount.CALORIE,
-                        HealthConstants.StepCount.DEVICE_UUID })
+                        HealthConstants.StepCount.SPEED, HealthConstants.StepCount.DEVICE_UUID })
+                .setFilter(filter).build();
+
+        try {
+            resolver.read(request).setResultListener(new HealthDataResultListener(this, error, success));
+        } catch (Exception e) {
+            Log.e(REACT_MODULE, e.getClass().getName() + " - " + e.getMessage());
+            Log.e(REACT_MODULE, "Getting step count fails.");
+            error.invoke("Getting step count fails.");
+        }
+
+    }
+
+    @ReactMethod
+    public void readStepCountSamples(double startDate, double endDate, Callback error, Callback success) {
+        HealthDataResolver resolver = new HealthDataResolver(mStore, null);
+
+        Filter filter = Filter.and(Filter.greaterThanEquals(HealthConstants.StepCount.START_TIME, (long) startDate),
+                Filter.lessThanEquals(HealthConstants.StepCount.END_TIME, (long) endDate));
+        HealthDataResolver.ReadRequest request = new ReadRequest.Builder()
+                .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+                .setProperties(new String[] { HealthConstants.StepCount.COUNT, HealthConstants.StepCount.DISTANCE,
+                        HealthConstants.StepCount.START_TIME, HealthConstants.StepCount.TIME_OFFSET,
+                        HealthConstants.StepCount.END_TIME, HealthConstants.StepCount.SPEED,
+                        HealthConstants.StepCount.CALORIE, HealthConstants.StepCount.DEVICE_UUID })
                 .setFilter(filter).build();
 
         try {
