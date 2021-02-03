@@ -69,18 +69,22 @@ public class MainApplication extends Application implements ReactApplication {
 ```javascript
     import RNSamsungHealth from 'rn-samsung-health'
 
-    RNSamsungHealth.authorize((err, res) => {
-      if (res) {
-       let startDate = new Date().setDate(new Date().getDate()-30); // 30 days back date
-       let endDate = new Date().getTime(); //today's date
+    useEffect(()=>{
+      health();
+    },[])
+    const health = async() => {
+      try{
+        const auth = await RNSamsungHealth.authorize();
+        let startDate = new Date().setDate(new Date().getDate()-30); // 30 days back date
+        let endDate = new Date().getTime(); //today's date
         let opt = {startDate, endDate};
-        RNSamsungHealth.getDailyStepCount(opt, (err, res) => {
-          if (err) console.log(err);
-          if (res) console.log(res);
-        });
+        const steps = await RNSamsungHealth.getDailyStepCount(opt);
 
-
-// more similar functions are - 
+      }catch(error){
+        console.log("error ", error)
+      }
+    }
+    // more similar functions are - 
     //getDailyStepCount
     //getHeight
     //getWeight
@@ -89,8 +93,24 @@ public class MainApplication extends Application implements ReactApplication {
     //getBloodPressure
     //getBodyTemprature
 
-      } else console.log(err);
-    });
+
+
+    // old method 
+    // RNSamsungHealth.authorize((err, res) => {
+    //   if (res) {
+    //    let startDate = new Date().setDate(new Date().getDate()-30); // 30 days back date
+    //    let endDate = new Date().getTime(); //today's date
+    //     let opt = {startDate, endDate};
+    //     RNSamsungHealth.getDailyStepCount(opt, (err, res) => {
+    //       if (err) console.log(err);
+    //       if (res) console.log(res);
+    //     });
+
+
+
+
+    //   } else console.log(err);
+    // });
     
     
     
