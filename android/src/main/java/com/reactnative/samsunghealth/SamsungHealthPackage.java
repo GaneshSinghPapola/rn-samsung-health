@@ -19,7 +19,6 @@ import java.util.List;
 public class SamsungHealthPackage implements ReactPackage {
 
     public static String PACKAGE_NAME;
-
     public SamsungHealthPackage() {
         if (PACKAGE_NAME == null) {
             this.PACKAGE_NAME = "com.reactnative.samsunghealth";
