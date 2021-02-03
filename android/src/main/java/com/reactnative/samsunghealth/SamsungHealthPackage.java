@@ -20,9 +20,9 @@ public class SamsungHealthPackage implements ReactPackage {
 
     public static String PACKAGE_NAME;
 
-    public SamsungHealthPackage(@Nullable String PACKAGE_NAME) {
-        if (PACKAGE_NAME != null) {
-            this.PACKAGE_NAME = PACKAGE_NAME;
+    public SamsungHealthPackage() {
+        if (PACKAGE_NAME == null) {
+            this.PACKAGE_NAME = "com.reactnative.samsunghealth";
         }
     }
 
