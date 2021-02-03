@@ -13,6 +13,9 @@ React-Native module to read health data from samsung-health application on andro
 
 ## Getting started
 
+If you are using RN >= 0.60 then no need to do further steps. Thanks to Autolinking feature.
+
+# For manual linking
 
   - Add to your `{YourApp}/android/settings.gradle`:
 
