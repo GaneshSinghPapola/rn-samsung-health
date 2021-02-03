@@ -304,5 +304,4 @@ class RNSamsungHealth {
     return results2;
   }
 }
-
 export default new RNSamsungHealth();

@@ -197,3 +197,4 @@ declare module 'rn-samsung-health' {
     options: IOptionData
   ) => Promise<IFloorsClimbedData[]>;
 }
+
